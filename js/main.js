@@ -79,7 +79,7 @@ var main_state = {
 		var hole = Math.floor(Math.random()*5) + 1;
 
 		for(var i = 0; i < 10; i++){
-			if(i != hole && i != hole + 1){
+			if(i != hole && i != hole + 1 && i != hole + 2 && i != hole + 3){
 				this.add_one_pipe(i * 60 + 10);
 			}
 		}
