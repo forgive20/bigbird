@@ -68,10 +68,11 @@ var main_state = {
 		this.game.time.events.remove(this.timer);
 	},
 
-	add_one_pipe: function(y){
-		var pipe = this.pipes.getFirstDead();
-		pipe.reset(400, y);
+	add_one_pipe: function(x, y){
+		var pipe = game.add.sprite(x, y, 'pipe');
+        this.pipes.add(pipe);
 		pipe.body.velocity.x = -230;
+		pipe.checkWorldBounds = true;
 		pipe.outOfBoundsKill = true;
 	},
 
@@ -80,7 +81,7 @@ var main_state = {
 
 		for(var i = 0; i < 10; i++){
 			if(i != hole && i != hole + 1 && i != hole + 2 && i != hole + 3){
-				this.add_one_pipe(i * 60 + 10);
+				this.add_one_pipe(400, i * 60 + 10);
 			}
 		}
 
