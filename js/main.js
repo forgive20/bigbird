@@ -2,11 +2,6 @@ var game = new Phaser.Game(400, 500, Phaser.AUTO, 'game_div');
 
 var main_state = {
 	preload: function(){
-		if(!this.game.device.desktop) {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.setMinMax(game.width / 2, game.height / 2, game.width, game.height);
-        }
-
 		this.game.stage.backgroundColor = '#71c5cf';
 
 		this.game.load.image('bird', 'img/bird.png');
