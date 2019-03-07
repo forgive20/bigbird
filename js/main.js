@@ -42,7 +42,7 @@ var main_state = {
 		this.bird.anchor.setTo(-0.2, 0.5);
 
 		this.jump_sound = this.game.add.audio('jump');
-		this.jumpSound.volume = 0.2;
+		this.jump_sound.volume = 0.2;
 	},
 
 	update: function(){
