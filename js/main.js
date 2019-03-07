@@ -1,4 +1,4 @@
-var game = new Phaser.Game(400, 600, Phaser.AUTO, 'game_div');
+var game = new Phaser.Game(400, 500, Phaser.AUTO, 'game_div');
 
 var main_state = {
 	preload: function(){
