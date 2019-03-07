@@ -7,6 +7,8 @@ var main_state = {
 		this.game.load.image('bird', 'img/bird.png');
 
 		this.game.load.image('pipe', 'img/pipe.png');
+
+		this.game.load.audio('jump', 'voice/jump.wav');
 	},
 
 	create: function(){
@@ -31,6 +33,10 @@ var main_state = {
 		var style = {font: '30px Arial', fill: '#ffffff'};
 
 		this.label_score = this.game.add.text(20, 20, '0', style);
+
+		this.bird.anchor.setTo(-0.2, 0.5);
+
+		this.jump_sound = this.game.add.audio('jump');
 	},
 
 	update: function(){
@@ -38,11 +44,22 @@ var main_state = {
 			this.restart_game();
 		}
 
-		this.game.physics.overlap(this.bird, this.pipes, this.show_result, null, this)
+		this.game.physics.overlap(this.bird, this.pipes, this.hit_pipe, null, this);
+
+		if(this.bird.angle < 20){
+			this.bird.angle += 1;
+		}
 	},
 
 	jump: function(){
 		this.bird.body.velocity.y = -350;
+		var animation = this.game.add.tween(this.bird).to({angle: -20}, 100).start();
+
+		if(this.bird.alive == false){
+			return;
+		}
+
+		this.jump_sound.play();
 	},
 
 	restart_game: function(){
@@ -74,14 +91,18 @@ var main_state = {
 		this.label_score.content = this.score;
 	},
 
-	show_result: function(){
+	hit_pipe: function(){
+		if(this.bird.alive == false){
+			return;
+		}
 
-		var style = {font: '80px Arial', fill: '#ffffff'};
+		this.bird.alive = false;
 
-		this.resutl_text = this.game.add.text(100, 200, '0', style);
-		this.resutl_text.content = '辣鸡！';
+		this.game.time.events.remove(this.timer);
 
-		this.timer3 = this.game.time.events.add(50, function(){game.state.paused('main');}, this);
+		this.pipes.forEachAlive(function(p){
+			p.body.velocity.x = 0;
+		}, this)
 	}
 }
 
